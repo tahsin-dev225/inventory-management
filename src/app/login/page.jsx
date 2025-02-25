@@ -69,6 +69,10 @@ const LoginPage = () => {
                         theme === 'dark' &&
                         <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
                     }
+                    {
+                        theme === 'system' &&
+                        <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
+                    }
                 </div>
                 
                 <div className="w-full flex justify-center items-center">

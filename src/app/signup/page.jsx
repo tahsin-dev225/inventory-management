@@ -97,6 +97,10 @@ const page = () => {
                             theme === 'dark' &&
                             <button onClick={() => setTheme('light')} className="border shadow-md border-slate-700 lg:hidden mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
                         }
+                        {
+                        theme === 'system' &&
+                        <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
+                        }
                     </div>
                 </div>
             </div>
