@@ -56,7 +56,7 @@ const layout = ({children}) => {
                         }
                         {
                             theme === 'system' &&
-                            <button onClick={() => setTheme('light')} className="border border-slate-500 text-[13px] my-3 duration-500 transition-all px-2 w-[85px] items-center py-[2px]  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
+                            <button onClick={() => setTheme('light')} className="border border-slate-500 text-[13px] my-3 duration-500 transition-all px-2 w-[85px] items-center py-[2px]  rounded-full flex justify-between "  >{"light"}<FaCircle/></button>
                         }
                             <FaRegUser className="text-3xl cursor-pointer  p-1 border mx-5 my-2 border-stone-500 rounded-full " onClick={toggleDrawer}/>
                             {

@@ -71,7 +71,7 @@ const LoginPage = () => {
                     }
                     {
                         theme === 'system' &&
-                        <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
+                        <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{"light"}<FaCircle/></button>
                     }
                 </div>
                 

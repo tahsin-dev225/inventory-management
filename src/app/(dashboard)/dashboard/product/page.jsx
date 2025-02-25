@@ -11,23 +11,23 @@ import { useDispatch, useSelector } from 'react-redux';
 const page = () => {
     const {theme,setTheme} = useTheme()
     const [products, setProducts] = useState([])
+    const [totalPage, setTotalPage] = useState(1)
     const loading = useSelector(state => state?.productReducer?.isLoading)
     const productData = useSelector(state => state?.productReducer?.data)
     const allProducts = useSelector(state => state?.productReducer?.allProducts)
     const dispatch = useDispatch()
     const [currentPage,setCurrentPage] = useState(1);
     const itemPerPage = 4;
-    
-    console.log('currentpage ', currentPage)
 
     useEffect(()=>{
-        dispatch(allProduct('als'))
+        dispatch(allProduct(''))
     },[dispatch])
 
     useEffect(()=>{
         axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products?page=${currentPage}&size=${itemPerPage}`,{withCredentials : true})
         .then(res =>{
-            setProducts(res?.data)
+            setProducts(res?.data.result)
+            setTotalPage(res?.data.total)
         })
         .catch(err =>{
             console.error('error form maname blogs',err)
@@ -94,7 +94,8 @@ const page = () => {
                     <button className='text'><FaSearch/></button>
                 </form>
             </div>
-            <Table className='' dataSource={dataSource} columns={columns} pagination={{
+            <Table className='' dataSource={dataSource} columns={columns} pagination={{pageSize:itemPerPage,
+            total:totalPage,
             current:currentPage,onChange:(page)=>{
                 setCurrentPage(page)
             }
