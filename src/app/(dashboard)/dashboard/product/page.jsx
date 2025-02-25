@@ -1,0 +1,107 @@
+"use client"
+import { allProduct } from '@/components/redux/product/productSlice';
+import { Table } from 'antd';
+import axios from 'axios';
+import { useTheme } from 'next-themes';
+import Image from 'next/image';
+import React, { useEffect, useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+
+const page = () => {
+    const {theme,setTheme} = useTheme()
+    const [products, setProducts] = useState([])
+    const loading = useSelector(state => state?.productReducer?.isLoading)
+    const productData = useSelector(state => state?.productReducer?.data)
+    const allProducts = useSelector(state => state?.productReducer?.allProducts)
+    const dispatch = useDispatch()
+    const [currentPage,setCurrentPage] = useState(1);
+    const itemPerPage = 4;
+    
+    console.log('currentpage ', currentPage)
+
+    useEffect(()=>{
+        dispatch(allProduct('als'))
+    },[dispatch])
+
+    useEffect(()=>{
+        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products?page=${currentPage}&size=${itemPerPage}`,{withCredentials : true})
+        .then(res =>{
+            setProducts(res?.data)
+        })
+        .catch(err =>{
+            console.error('error form maname blogs',err)
+        })
+    },[currentPage])
+
+    const handleSearch = (e)=>{
+        e.preventDefault();
+        const name = e.target.search.value;
+        // axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products/${name}`,{withCredentials : true})
+        // .then(res =>{
+        //     const searched = [res.data]
+        //     setProducts(searched)
+        // })
+        // .catch(err =>{
+        //     console.error('error form maname blogs',err)
+        // })
+
+    }
+
+    const dataSource = products?.map(product => (
+        {
+        key: product._id, 
+        name: product.name,
+        quantity: product.quantity,
+        price: product.price,  
+        image : product.image,
+    }));
+      
+      const columns = [
+        {
+          title: 'Name',
+          dataIndex: 'name',
+          key: 'name',
+        },
+        {
+          title: 'quantity',
+          dataIndex: 'quantity',
+          key: 'quantity',
+        },
+        {
+          title: 'price',
+          dataIndex: 'price',
+          key: 'price',
+        },
+        {
+          title: 'Image',
+          dataIndex: 'image',
+          key: 'image',
+          render : (image)=>(
+            image ?
+            <Image className='object-cover w-' src={image} height={50} width={50} alt='product'  /> 
+            : 'No photo'
+          )
+        },
+      ];
+      
+    return (
+        <div className='p-2'>
+            <div className="flex lg:justify-around items-center my-3">
+                <i className="text-md lg:text-3xl w-min lg:w-max my-4 mx-4 font-medium font-roboto">All products page.</i>
+                <form onSubmit={handleSearch} className={`${theme === 'dark' ? "flex items-center justify-center gap-2 h-min text-slate-300 bg-black rounded-full  pr-3": "flex items-center justify-center gap-2 h-min bg-white rounded-full  pr-3"} `}>
+                    <input type="search" placeholder='Search product' name="search" className={`max-w-24 text-[13px] lg:text-[17px] lg:max-w-56 py-2 rounded-l-full px-3 outline-none`} />
+                    <button className='text'><FaSearch/></button>
+                </form>
+            </div>
+            <Table className='' dataSource={dataSource} columns={columns} pagination={{
+            current:currentPage,onChange:(page)=>{
+                setCurrentPage(page)
+            }
+            } 
+            } />
+        </div>
+    );
+};
+
+export default page;

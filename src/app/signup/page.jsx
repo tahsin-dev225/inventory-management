@@ -53,7 +53,7 @@ const page = () => {
     return (
         <div className="w-full h-screen  mx-auto ">
             <div className="flex justify-center h-full">
-                <div className="p-10 flex flex-col justify-between w-full px-8 bg-[url('/img/login.jpg')]  bg-cover ">
+                <div className="p-10  hidden lg:flex flex-col justify-between w-full px-8 bg-[url('/img/login.jpg')]  bg-cover ">
                     <h1 className="text-2xl font-oswald bg-gradient-to-tr to-indigo-900 from-[#3d64a2]  text-white font-semibold my-4 rounded border-t-2 border-r-2 border-t-indigo-500 border-r-indigo-500 w-max p-1 px-2 ">Inventory</h1>
                     <div className="">
                         <h2 className="text-center text-4xl lg:text-5xl text-white font-serif mx-auto w-[80%] font-semibold ">Wellcome to Inventory</h2>
@@ -72,8 +72,9 @@ const page = () => {
                 </div>
                 <div className="w-full flex justify-center items-center">
                     <div className="p-4 w-full px-8">
-                        <h2 className="text-3xl mx-10 font-semibold font-serif ">Sign Up</h2>
-                        <form onSubmit={handleSignup} className="w-[75%] mx-auto my-14">
+                    <h1 className=" flex lg:hidden text-2xl font-oswald bg-gradient-to-tr  to-indigo-900 from-[#3d64a2] text-white font-semibold my-4 rounded border-t-2 border-r-2 border-t-indigo-500 border-r-indigo-500 w-max p-1 px-2 ">Inventory</h1>
+                        <h2 className="text-3xl lg:mx-10 font-semibold font-serif ">Sign Up</h2>
+                        <form onSubmit={handleSignup} className="w-[99%] md:w-[70%] lg:w-[75%] mx-auto my-14">
                             <div className="my-4">
                                 <p className="my-1 text-[15px] mx-2 text-slate-600"> Name </p>
                                 <input type="text" name="name" className='w-full text-[13px] border border-slate-300 rounded-full px-4 py-2 outline-none shadow-xl' placeholder='Enter your name...' />
@@ -88,6 +89,14 @@ const page = () => {
                             </div>
                             <input type="submit" value="Login"  disabled={disable} className={`${disable ? disableButton : normalButton}  `}  />
                         </form>
+                        {
+                        theme === 'light' &&
+                        <button onClick={() => setTheme('dark')} className="border shadow-md border-slate-400 lg:hidden mx-3 duration-500 transition-all px-3 w-[80px] text-rose-500 items-center py-1 rounded-full flex justify-between "  ><FaCircle/>{theme}</button>
+                        }
+                        {
+                            theme === 'dark' &&
+                            <button onClick={() => setTheme('light')} className="border shadow-md border-slate-700 lg:hidden mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
+                        }
                     </div>
                 </div>
             </div>

@@ -13,9 +13,10 @@ import { useSelector } from "react-redux";
 const LoginPage = () => {
     const {theme , setTheme} = useTheme('light')
     const router = useRouter();
-    const [disable, setdisable] = useState(false)
+    
     const {signIn} = useFirebase();
     const user = useSelector(state => state?.userReducer?.userData)
+    const [disable, setdisable] = useState(false)
 
     const normalButton = 'w-full text-white my-6 bg-gradient-to-tr from-indigo-900 to-orange-600 cursor-pointer border rounded-full py-2 shadow-xl'
     const disableButton = 'w-full text-white my-6 bg-slate-400 cursor-pointer border rounded-full py-2 shadow-xl'
@@ -25,23 +26,24 @@ const LoginPage = () => {
         e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value;
-        signIn(email,password)
-        .then(res =>{
-            setdisable(false)
-            router.push('/dashboard')
-        })
-        .catch(error =>{
-            Swal.fire({
-                position: "top-end",
-                icon: "error",
-                title: "You don't have account sign up first.",
-                showConfirmButton: false,
-                timer: 1500
-              });
-            console.log('error from login', error)
-            setdisable(false)
-        }
-        )
+
+            signIn(email,password)
+            .then(res =>{
+                setdisable(false)
+                router.push('/dashboard')
+            })
+            .catch(error =>{
+                Swal.fire({
+                    position: "top-end",
+                    icon: "error",
+                    title: "You don't have account sign up first.",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                console.log('error from login', error)
+                setdisable(false)
+            }
+            )
     }
 
     if(user){
@@ -51,7 +53,7 @@ const LoginPage = () => {
     return (
         <div className="w-full h-screen  mx-auto ">
             <div className="flex justify-center h-full">
-                <div className="p-10 flex flex-col justify-between w-full px-8 bg-[url('/img/login.jpg')]  bg-cover ">
+                <div className="p-10 hidden lg:flex flex-col justify-between w-full px-8 bg-[url('/img/login.jpg')]  bg-cover ">
                     <h1 className="text-2xl font-oswald bg-gradient-to-tr to-indigo-900 from-[#3d64a2] text-white font-semibold my-4 rounded border-t-2 border-r-2 border-t-indigo-500 border-r-indigo-500 w-max p-1 px-2 ">Inventory</h1>
                     <div className="">
                         <h2 className="text-center text-4xl lg:text-[42px] text-white font-serif mx-auto w-[80%] font-semibold ">Wellcome to Inventory </h2>
@@ -68,10 +70,12 @@ const LoginPage = () => {
                         <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
                     }
                 </div>
+                
                 <div className="w-full flex justify-center items-center">
-                    <div className="p-4 w-full px-8">
-                        <h2 className="text-2xl mx-10 font-semibold font-serif ">Sign In</h2>
-                        <form onSubmit={handleLogin} className="w-[75%] mx-auto my-14">
+                    <div className="p-4 relative w-full px-8">
+                    <h1 className=" flex lg:hidden text-2xl font-oswald bg-gradient-to-tr  to-indigo-900 from-[#3d64a2] text-white font-semibold my-4 rounded border-t-2 border-r-2 border-t-indigo-500 border-r-indigo-500 w-max p-1 px-2 ">Inventory</h1>
+                        <h2 className="text-2xl lg:mx-10 font-semibold font-serif ">Sign In</h2>
+                        <form onSubmit={handleLogin} className="w-[99%] md:w-[70%] lg:w-[75%] mx-auto my-14">
                             <div className="my-4">
                                 <p className="my-1 text-[15px] mx-2 text-slate-600"> Email </p>
                                 <div className="flex items-center ">
