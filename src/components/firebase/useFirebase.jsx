@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import  app from  "./firebase.config"
 import { getAuth, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { getAdmin, getUser } from "../redux/user/userSlice";
+import { getAdmin, getUser, removeLoggedError } from "../redux/user/userSlice";
 
 const auth = getAuth(app)
 
@@ -19,6 +19,7 @@ const useFirebase = () => {
         return signInWithEmailAndPassword(auth , email,passowrd)
     }
     const logOut = ()=>{
+        dispatch(removeLoggedError())
         return signOut(auth)
     }
 
@@ -26,7 +27,7 @@ const useFirebase = () => {
         onAuthStateChanged(auth, currentUser =>{
            dispatch(getUser(currentUser?.email))
            dispatch(getAdmin(currentUser?.email))
-           console.log("current user ", currentUser)
+        //    console.log("current user ", currentUser)
        })
    },[])
 

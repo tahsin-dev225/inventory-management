@@ -56,7 +56,7 @@ const page = () => {
                 <div className="p-10  hidden lg:flex flex-col justify-between w-full px-8 bg-[url('/img/login.jpg')]  bg-cover ">
                     <h1 className="text-2xl font-oswald bg-gradient-to-tr to-indigo-900 from-[#3d64a2]  text-white font-semibold my-4 rounded border-t-2 border-r-2 border-t-indigo-500 border-r-indigo-500 w-max p-1 px-2 ">Inventory</h1>
                     <div className="">
-                        <h2 className="text-center text-4xl lg:text-5xl text-white font-serif mx-auto w-[80%] font-semibold ">Wellcome to Inventory</h2>
+                        <h2 className="text-center text-4xl lg:text-[42px] text-white font-serif mx-auto w-[80%] font-semibold ">Wellcome to Inventory</h2>
                         <p className="text-[15px] w-[75%] mx-auto  ite  text-center my-5 text-white font-thin">You have to login or sign-up first to go to the dashboard . Its a very private page that's why we prefer the login first so login or sing-up first.</p>
                         {/* <Image className="w-[300px]" src={'/img/inven-signin.png'} height={500} width={600} alt="login" /> */}
                         <Link href='/login' className="text-white mx-auto font- flex gap-3 items-center my-6 w-max px-5 bg-gradient-to-tr from-indigo-900 to-orange-600 cursor-pointer rounded-full py-2 ">Login <FaLongArrowAltRight/></Link>
@@ -77,7 +77,7 @@ const page = () => {
                 <div className="w-full flex justify-center items-center">
                     <div className="p-4 w-full px-8">
                     <h1 className=" flex lg:hidden text-2xl font-oswald bg-gradient-to-tr  to-indigo-900 from-[#3d64a2] text-white font-semibold my-4 rounded border-t-2 border-r-2 border-t-indigo-500 border-r-indigo-500 w-max p-1 px-2 ">Inventory</h1>
-                        <h2 className="text-3xl lg:mx-10 font-semibold font-serif ">Sign Up</h2>
+                        <h2 className="text-2xl lg:mx-10 font-semibold font-serif ">Sign Up</h2>
                         <form onSubmit={handleSignup} className="w-[99%] md:w-[70%] lg:w-[75%] mx-auto my-14">
                             <div className="my-4">
                                 <p className="my-1 text-[15px] mx-2 text-slate-600"> Name </p>

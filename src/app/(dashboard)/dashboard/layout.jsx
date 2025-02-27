@@ -26,16 +26,16 @@ const layout = ({children}) => {
     return (
         <UserRoute>
             <div className='flex '>
-                <div className="border-r lg:min-w-max lg:max-w-72 border-r-indigo-950 bg-[#0f0617] flex flex-col justify-between">
+                <div className="border-r flex min-h-screen lg:min-w-max lg:max-w-72 border-r-indigo-950 bg-[#0f0617] flex-col justify-between">
                     <div className="flex flex-col items- mt-0">
                         <h1 className="lg:text-xl hidden lg:flex mx-auto text-red-400 font-semibold my-4 rounded border-t-2 border-r-2 border-t-indigo-500 border-r-indigo-500 
                          w-max p-1 px-4 font-oswald bg-gradient-to-tr to-indigo-900/80 from-[#3d64a2]/80 ">
                             Inventory
                         </h1>
-                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 my- items-center border- hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700 mt-5 lg:mt-1' href="/dashboard"><MdOutlineDashboard className='hidden lg:flex' /> Dashboard</Link>
-                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 my- items-center border- hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/product"><MdOutlineDashboard className='hidden lg:flex' /> Products</Link>
-                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 my- items-center border- hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/add-product"><MdAddToPhotos className='hidden lg:flex' /> Add Product</Link>
-                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 my- items-center border- hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/manage-users"><MdManageAccounts className='hidden lg:flex'  /> Manage Users</Link>
+                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700 mt-5 lg:mt-1' href="/dashboard"><MdOutlineDashboard className='hidden lg:flex' /> Dashboard</Link>
+                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/product"><MdOutlineDashboard className='hidden lg:flex' /> Products</Link>
+                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/add-product"><MdAddToPhotos className='hidden lg:flex' /> Add Product</Link>
+                        <Link className='flex text-[14px] lg:text-[16px] shadow-2xl gap-3 hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/manage-users"><MdManageAccounts className='hidden lg:flex'  /> Manage Users</Link>
                     </div>
                     <div className="w-[90%] mx-auto mb-2">
                         {isUser ?  <button onClick={()=> logOut()} className=' w-full py-1   bg-slate-600 rounded-lg text-white cursor-pointer  my-3 '>Log out</button> : '' }

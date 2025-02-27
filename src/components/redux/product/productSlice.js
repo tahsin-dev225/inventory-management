@@ -13,7 +13,7 @@ export const addProduct = createAsyncThunk("addProduct", async(newProduct,{rejec
 export const allProduct = createAsyncThunk("allProduct", async({currentPage,itemPerPage,searchItem},{rejectWithValue})=>{
     try {
         const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products?page=${currentPage}&size=${itemPerPage}&search=${searchItem}`,{withCredentials : true});
-        console.log('respone redux main server', resp.data.metaData)
+        // console.log('respone redux main server', resp.data.metaData)
         return resp?.data
     }catch (error) {
         console.log(error)
@@ -52,7 +52,7 @@ const productSlice = createSlice({
             state.isLoading = true
         });
         builder.addCase(allProduct.fulfilled, (state,action)=>{
-            console.log('product', action.payload);
+            // console.log('product', action.payload);
             state.isLoading = false;
             state.allProducts = action.payload.result;
             state.pagination = action.payload.metaData.totalItem;

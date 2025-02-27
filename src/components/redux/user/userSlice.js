@@ -4,17 +4,17 @@ import axios from "axios";
 export const addUser = createAsyncThunk("addUser", async(newUser,{rejectWithValue})=>{
     try {
         const resp = await axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/users`,newUser , {withCredentials : true} )
-        // console.log(resp.data)
+        // console.log()
         return resp.data;
     } catch (error) {
         console.log('error form user slice catch' , error)
         return rejectWithValue(error.response?.data || error.message)
     }
 })
-export const logUser = createAsyncThunk("logUser", async(newUser,{rejectWithValue})=>{
+
+export const logUser = createAsyncThunk("logUser", async(email,{rejectWithValue})=>{
     try {
-        const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/users`,newUser , {withCredentials : true} )
-        console.log(resp.data)
+        const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/isLogged/${email}` , {withCredentials : true} )
         return resp.data;
     } catch (error) {
         console.log('error form user slice catch' , error)
@@ -50,9 +50,16 @@ const userSlice = createSlice({
         data : null,
         userData : null,
         isAdmin : null,
-        isLoading : true
+        isLoading : true,
+        isLogged : false,
+        isloggedError : false,
+        errorMesage : null,
     },
-    reducers : {},
+    reducers : {
+        removeLoggedError : (state , action)=>{
+            state.isLogged = false;
+        } 
+    },
     extraReducers : (builder)=>{
         builder.addCase(addUser.fulfilled , (state,action)=>{
             state.data = action.payload;
@@ -60,6 +67,16 @@ const userSlice = createSlice({
         builder.addCase(addUser.rejected , (state,action)=>{
             console.log(action.payload)
         })
+
+        builder.addCase(logUser.fulfilled , (state,action)=>{
+            state.isLogged = true;
+        })
+        builder.addCase(logUser.rejected , (state,action)=>{
+            console.log(action.payload)
+            state.isloggedError = true;
+            state.errorMesage = action.payload
+        })
+
         builder.addCase(getUser.pending , (state,action)=>{
             state.isLoading = true
             // console.log('getUser pending true' )
@@ -90,5 +107,7 @@ const userSlice = createSlice({
         })
     }
 })
+
+export const {removeLoggedError} = userSlice.actions
 
 export default userSlice.reducer

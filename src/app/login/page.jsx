@@ -5,15 +5,20 @@ import Link from "next/link";
 import { FaCircle, FaFacebook } from "react-icons/fa6";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 import useFirebase from "@/components/firebase/useFirebase";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logUser } from "@/components/redux/user/userSlice";
 
 const LoginPage = () => {
     const {theme , setTheme} = useTheme('light')
+    const [newUser , setNewUser] = useState({email : '', password : ''})
     const router = useRouter();
-    
+    const isLogged = useSelector(state => state.userReducer?.isLogged)
+    const loggedError = useSelector(state => state.userReducer?.isloggedError)
+    const errorMessage = useSelector(state => state.userReducer?.errorMesage)
+    const dispatch = useDispatch()
     const {signIn} = useFirebase();
     const user = useSelector(state => state?.userReducer?.userData)
     const [disable, setdisable] = useState(false)
@@ -26,8 +31,13 @@ const LoginPage = () => {
         e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value;
-        // if(''){}
-            signIn(email,password)
+        dispatch(logUser(email))
+        setNewUser({email,password})
+    }
+
+    useEffect(()=>{
+        if(isLogged){
+            signIn(newUser.email,newUser.password)
             .then(res =>{
                 setdisable(false)
                 router.push('/dashboard')
@@ -44,10 +54,23 @@ const LoginPage = () => {
                 setdisable(false)
             }
             )
-    }
+        }
+        if(loggedError){
+            setdisable(false)
+            Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: `${errorMessage}`,
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+        
+    },[isLogged ,loggedError])
 
     if(user){
-        return router.push('/dashboard')
+        router.push('/dashboard')
+        return <div className=""></div>
     }
 
     return (

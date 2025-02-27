@@ -19,7 +19,6 @@ const page = () => {
     const [currentPage,setCurrentPage] = useState(1);
     const itemPerPage = 4;
     const [searchItem , setSearchItem] = useState('')
-    console.log(searchItem)
 
     useEffect(()=>{
         dispatch(allProduct({currentPage,itemPerPage,searchItem}))
@@ -70,7 +69,7 @@ const page = () => {
       ];
       
     return (
-        <div className='p-2'>
+        <div className='p-2 w-full'>
             <div className="flex lg:justify-around items-center my-3">
                 <i className="text-md lg:text-3xl w-min lg:w-max my-4 mx-4 font-medium font-roboto">All products page.</i>
                 <form onSubmit={handleSearch} className={`${theme === 'dark' ? "flex items-center justify-center gap-2 h-min text-slate-300 bg-black rounded-full  pr-3": "flex items-center justify-center gap-2 h-min bg-white rounded-full  pr-3"} `}>
@@ -78,13 +77,16 @@ const page = () => {
                     <button className='text'><FaSearch/></button>
                 </form>
             </div>
-            <Table className='' dataSource={dataSource} columns={columns} pagination={{pageSize:itemPerPage,
-            total:totalPage,
-            current:currentPage,onChange:(page)=>{
-                setCurrentPage(page)
-            }
-            } 
-            } />
+            <div className="overflow-x-auto lg:overflow-hidden">
+              <Table className='w-full min-w-[90px]' dataSource={dataSource} columns={columns} pagination={{pageSize:itemPerPage,
+              total:totalPage,
+              current:currentPage,onChange:(page)=>{
+                  setCurrentPage(page)
+              }
+              } 
+              } />
+            </div>
+              
         </div>
     );
 };

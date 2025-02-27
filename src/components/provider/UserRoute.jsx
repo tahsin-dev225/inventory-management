@@ -24,7 +24,8 @@ const UserRoute = ({children}) => {
     }
 
     if(isUser === null || isUser === undefined){
-        return router.push('/login')
+        router.push('/login')
+        return <div className=""></div>
     }
 };
 
