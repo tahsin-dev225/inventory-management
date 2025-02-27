@@ -72,7 +72,6 @@ const userSlice = createSlice({
             state.isLogged = true;
         })
         builder.addCase(logUser.rejected , (state,action)=>{
-            console.log(action.payload)
             state.isloggedError = true;
             state.errorMesage = action.payload
         })

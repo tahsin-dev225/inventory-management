@@ -65,7 +65,7 @@ const page = () => {
             <Image className='object-cover w-' src={image} height={50} width={50} alt='product'  /> 
             : 'No photo'
           )
-        },
+        }
       ];
       
     return (
@@ -77,8 +77,8 @@ const page = () => {
                     <button className='text'><FaSearch/></button>
                 </form>
             </div>
-            <div className="overflow-x-auto lg:overflow-hidden">
-              <Table className='w-full min-w-[90px]' dataSource={dataSource} columns={columns} pagination={{pageSize:itemPerPage,
+            <div className="overflow-x-auto mx-auto sm:overflow-x-visible  w-[260px] sm:w-full">
+              <Table className=''  dataSource={dataSource} columns={columns} pagination={{pageSize:itemPerPage,
               total:totalPage,
               current:currentPage,onChange:(page)=>{
                   setCurrentPage(page)
