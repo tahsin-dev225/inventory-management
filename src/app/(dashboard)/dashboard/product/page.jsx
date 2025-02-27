@@ -10,45 +10,29 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const page = () => {
     const {theme,setTheme} = useTheme()
-    const [products, setProducts] = useState([])
-    const [totalPage, setTotalPage] = useState(1)
-    const loading = useSelector(state => state?.productReducer?.isLoading)
+    // const [products, setProducts] = useState([])
+    // const [totalPage, setTotalPage] = useState(1)
+    const totalPage = useSelector(state => state?.productReducer?.pagination)
     const productData = useSelector(state => state?.productReducer?.data)
     const allProducts = useSelector(state => state?.productReducer?.allProducts)
     const dispatch = useDispatch()
     const [currentPage,setCurrentPage] = useState(1);
     const itemPerPage = 4;
+    const [searchItem , setSearchItem] = useState('')
+    console.log(searchItem)
 
     useEffect(()=>{
-        dispatch(allProduct(''))
-    },[dispatch])
+        dispatch(allProduct({currentPage,itemPerPage,searchItem}))
+    },[dispatch ,currentPage,searchItem])
 
-    useEffect(()=>{
-        axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products?page=${currentPage}&size=${itemPerPage}`,{withCredentials : true})
-        .then(res =>{
-            setProducts(res?.data.result)
-            setTotalPage(res?.data.total)
-        })
-        .catch(err =>{
-            console.error('error form maname blogs',err)
-        })
-    },[currentPage])
 
     const handleSearch = (e)=>{
         e.preventDefault();
         const name = e.target.search.value;
-        // axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products/${name}`,{withCredentials : true})
-        // .then(res =>{
-        //     const searched = [res.data]
-        //     setProducts(searched)
-        // })
-        // .catch(err =>{
-        //     console.error('error form maname blogs',err)
-        // })
-
+        setSearchItem(name)
     }
 
-    const dataSource = products?.map(product => (
+    const dataSource = allProducts?.map(product => (
         {
         key: product._id, 
         name: product.name,

@@ -26,7 +26,7 @@ const LoginPage = () => {
         e.preventDefault()
         const email = e.target.email.value;
         const password = e.target.password.value;
-
+        // if(''){}
             signIn(email,password)
             .then(res =>{
                 setdisable(false)
