@@ -43,6 +43,16 @@ export const getAdmin = createAsyncThunk("getAdmin", async(currentUser,{rejectWi
         return rejectWithValue(error.response?.data || error.message)
     }
 })
+export const allUsers = createAsyncThunk("allUsers", async(user,{rejectWithValue})=>{
+    try {
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/allUsers`, {withCredentials : true})
+        console.log('user info form backnd user slice getAdmin',res)
+        return res.data ;
+    } catch (error) {
+        console.log('error form user slice catch' , error)
+        return rejectWithValue(error.response?.data || error.message)
+    }
+})
 
 const userSlice = createSlice({
     name : 'user',
@@ -50,6 +60,7 @@ const userSlice = createSlice({
         data : null,
         userData : null,
         isAdmin : null,
+        allUsers : null,
         isLoading : true,
         isLogged : false,
         isloggedError : false,
@@ -61,6 +72,12 @@ const userSlice = createSlice({
         } 
     },
     extraReducers : (builder)=>{
+        builder.addCase(allUsers.fulfilled , (state,action)=>{
+            state.allUsers = action.payload;
+        })
+        builder.addCase(allUsers.rejected , (state,action)=>{
+            console.log(action.payload)
+        })
         builder.addCase(addUser.fulfilled , (state,action)=>{
             state.data = action.payload;
         })
@@ -97,7 +114,7 @@ const userSlice = createSlice({
         builder.addCase(getAdmin.fulfilled , (state,action)=>{
             state.isAdmin = action.payload;
             state.isLoading = false
-            // console.log('getAdmin pending false')
+            console.log('getAdmin pending false',action.payload)
         })
         builder.addCase(getAdmin.rejected , (state,action)=>{
             console.log(action.payload)

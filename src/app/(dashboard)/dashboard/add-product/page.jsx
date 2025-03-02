@@ -1,5 +1,6 @@
 "use client"
 
+import PrivateRoute from "@/components/provider/PrivateRoute";
 import { addProduct } from "@/components/redux/product/productSlice";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -66,37 +67,39 @@ const page = () => {
     },[isError])
 
     return (
-        <div className="p-3 flex min-h-screen flex-col  w-full bg-cover ">
-            <p className="text-3xl mx-6 px-2 my-4 font-oswald">Add product page.</p>
-            <div className="flex justify-center ">
-                <form onSubmit={handleAddProduct} className="w-full xl:w-[65%] mx-auto">
-                    <div className="lg:flex gap-4 my-4 w-full">
-                        <div className="w-full">
-                            <p className="my-1 text-[15px] mx-2 text-slate-600"> Name </p>
-                            <input type="text" name="name" className='w-full text-[13px] border border-slate-300 rounded-full px-4 py-2 outline-none shadow-xl' placeholder={` Enter your product name...`} />
+        <PrivateRoute role={[ "admin", "supper-admin" ]}>
+            <div className="p-3 flex min-h-screen flex-col  w-full bg-cover ">
+                <p className="text-3xl mx-6 px-2 my-4 font-oswald">Add product page.</p>
+                <div className="flex justify-center ">
+                    <form onSubmit={handleAddProduct} className="w-full xl:w-[65%] mx-auto">
+                        <div className="lg:flex gap-4 my-4 w-full">
+                            <div className="w-full">
+                                <p className="my-1 text-[15px] mx-2 text-slate-600"> Name </p>
+                                <input type="text" name="name" className='w-full text-[13px] border border-slate-300 rounded-full px-4 py-2 outline-none shadow-xl' placeholder={` Enter your product name...`} />
+                            </div>
+                            <div className="w-full">
+                                <p className="my-1 text-[15px] mx-2 text-slate-600"> Price </p>
+                                <input type="number" name="price" className='w-full text-[13px] border border-slate-300 rounded-full px-4 py-2 outline-none shadow-xl' placeholder={` Enter your Product price...`} />
+                            </div>
                         </div>
-                        <div className="w-full">
-                            <p className="my-1 text-[15px] mx-2 text-slate-600"> Price </p>
-                            <input type="number" name="price" className='w-full text-[13px] border border-slate-300 rounded-full px-4 py-2 outline-none shadow-xl' placeholder={` Enter your Product price...`} />
-                        </div>
-                    </div>
-                    <div className="lg:flex gap-4 my-4 w-full">
-                        <div className="w-full">
-                            <p className="my-1 text-[15px] mx-2 text-slate-600"> Quantity </p>
-                            <input type="number" name="quantity" className='w-full text-[13px] border border-slate-300 rounded-full px-4 py-2 outline-none shadow-xl' placeholder={` Enter product quantity...`} />
-                        </div>
-                        <div className="w-full">
-                            <p className="my-1 text-[15px] mx-2 text-slate-600"> Photo </p>
-                            <input type="file" name="photo" className="w-full  py-1 px-3  rounded-full file- file-input-ghost text-white cursor-pointer bg-red-400" required />
+                        <div className="lg:flex gap-4 my-4 w-full">
+                            <div className="w-full">
+                                <p className="my-1 text-[15px] mx-2 text-slate-600"> Quantity </p>
+                                <input type="number" name="quantity" className='w-full text-[13px] border border-slate-300 rounded-full px-4 py-2 outline-none shadow-xl' placeholder={` Enter product quantity...`} />
+                            </div>
+                            <div className="w-full">
+                                <p className="my-1 text-[15px] mx-2 text-slate-600"> Photo </p>
+                                <input type="file" name="photo" className="w-full  py-1 px-3  rounded-full file- file-input-ghost text-white cursor-pointer bg-red-400" required />
+                            </div>
+                            
                         </div>
                         
-                    </div>
-                    
-                    <textarea  name='description' placeholder="Write the product description" className="input pt-1 my-3 min-h-[200px] w-full input-bordered" required />
-                    <input type="submit" value="Add Product"  disabled={disable} className={`${disable ? disableButton : normalButton}  `}  />
-                </form>
+                        <textarea  name='description' placeholder="Write the product description" className="input pt-1 my-3 min-h-[200px] w-full input-bordered" required />
+                        <input type="submit" value="Add Product"  disabled={disable} className={`${disable ? disableButton : normalButton}  `}  />
+                    </form>
+                </div>
             </div>
-        </div>
+        </PrivateRoute>
     );
 };
 

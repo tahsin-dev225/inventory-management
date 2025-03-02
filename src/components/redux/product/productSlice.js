@@ -1,3 +1,4 @@
+import useAxiosSecure from "@/components/provider/useAxiosSecure";
 import axios from "axios";
 const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
 
@@ -12,7 +13,8 @@ export const addProduct = createAsyncThunk("addProduct", async(newProduct,{rejec
 })
 export const allProduct = createAsyncThunk("allProduct", async({currentPage,itemPerPage,searchItem},{rejectWithValue})=>{
     try {
-        const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products?page=${currentPage}&size=${itemPerPage}&search=${searchItem}`,{withCredentials : true});
+        const token = localStorage.getItem('access-token')
+        const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/products?page=${currentPage}&size=${itemPerPage}&search=${searchItem}`,{headers : {authorization : `Bearer ${token}`}});
         // console.log('respone redux main server', resp.data.metaData)
         return resp?.data
     }catch (error) {
