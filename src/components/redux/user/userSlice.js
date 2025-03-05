@@ -105,7 +105,7 @@ const userSlice = createSlice({
         builder.addCase(getUser.rejected , (state,action)=>{
             // state.userData = action.payload;
             state.isLoading = false
-            // console.log('getUser filfild flase')
+            console.log('getUser filfild flase')
         })
         builder.addCase(getAdmin.pending , (state,action)=>{
             state.isLoading = true
@@ -114,7 +114,7 @@ const userSlice = createSlice({
         builder.addCase(getAdmin.fulfilled , (state,action)=>{
             state.isAdmin = action.payload;
             state.isLoading = false
-            console.log('getAdmin pending false',action.payload)
+            // console.log('getAdmin pending false',action.payload)
         })
         builder.addCase(getAdmin.rejected , (state,action)=>{
             console.log(action.payload)

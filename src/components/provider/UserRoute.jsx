@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 const UserRoute = ({children}) => {
@@ -9,7 +9,7 @@ const UserRoute = ({children}) => {
     // const state = useSelector(state => state)
     const router = useRouter()
 
-    // console.log(loading,'loding')
+    // console.log(isUser,'is user')
 
     if(loading === true){
         return <div className="w-full min-h-screen flex justify-center items-center">
@@ -23,10 +23,11 @@ const UserRoute = ({children}) => {
             </div>
     }
 
-    if(isUser === null || isUser === undefined){
+    if(isUser === null || isUser === undefined || isUser === false){
         router.push('/login')
         return <div className=""></div>
     }
+        
 };
 
 export default UserRoute;

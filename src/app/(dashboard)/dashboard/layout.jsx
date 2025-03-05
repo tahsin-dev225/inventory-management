@@ -8,6 +8,7 @@ import { useTheme } from 'next-themes';
 import { FaCircle, FaRegUser } from 'react-icons/fa';
 import { FcDataSheet } from "react-icons/fc";
 import { IoMdLogOut } from 'react-icons/io';
+import { BsBorderStyle } from "react-icons/bs";
 import { useState } from 'react';
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
@@ -37,6 +38,7 @@ const layout = ({children}) => {
                         <Link className='flex text-[10px] lg:text-[16px] lg:hover:text-[17px] lg:min-w-48 delay-100 shadow-2xl gap-3 bg-[#150505] hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700 mt-5 lg:mt-1' href="/dashboard"><FcDataSheet  className=' lg:flex' /> Dashboard</Link>
                         <Link className='flex text-[10px] lg:text-[16px] lg:hover:text-[17px] lg:min-w-48 delay-100 shadow-2xl gap-3 bg-[#150505] hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/product"><MdOutlineDashboard className=' lg:flex' /> Products</Link>
                         <Link className='flex text-[10px] lg:text-[16px] lg:hover:text-[17px] lg:min-w-48 delay-100 shadow-2xl gap-3 bg-[#150505] hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/add-product"><MdAddToPhotos className=' lg:flex' /> Add Product</Link>
+                        <Link className='flex text-[10px] lg:text-[16px] lg:hover:text-[17px] lg:min-w-48 delay-100 shadow-2xl gap-3 bg-[#150505] hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/order"><BsBorderStyle className=' lg:flex' /> Order </Link>
                         <Link className='flex text-[10px] lg:text-[16px] lg:hover:text-[17px] lg:min-w-48 delay-100 shadow-2xl gap-3 bg-[#150505] hover:bg-red-950 text-slate-300 py-3 px-1 lg:px-5 items-center hover:text-red-40 transition-all rounded m-[3px] border-t-slate-700' href="/dashboard/manage-users"><MdManageAccounts className=' lg:flex'  /> Manage Users</Link>
                     </div>
                     <div className="w-[90%] mx-auto mb-2">
