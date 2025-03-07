@@ -46,7 +46,7 @@ export const getAdmin = createAsyncThunk("getAdmin", async(currentUser,{rejectWi
 export const allUsers = createAsyncThunk("allUsers", async(user,{rejectWithValue})=>{
     try {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/allUsers`, {withCredentials : true})
-        console.log('user info form backnd user slice getAdmin',res)
+        // console.log('user info form backnd user slice getAdmin',res)
         return res.data ;
     } catch (error) {
         console.log('error form user slice catch' , error)

@@ -2,11 +2,11 @@
 import { Table } from 'antd';
 import { MdOutlineBorderInner } from 'react-icons/md';
 import { Button, Modal } from 'antd';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { orderProduct, orderProductName, productNames } from '@/components/redux/product/productSlice';
+import { allOrders, orderProduct, orderProductName, productNames } from '@/components/redux/product/productSlice';
 import Swal from 'sweetalert2';
 
 const page = () => {
@@ -17,11 +17,17 @@ const page = () => {
     const {theme,setTheme} = useTheme()
     const normalButton = 'w-full text-white my-6 bg-gradient-to-tr from-indigo-900 to-orange-600 cursor-pointer border rounded-full py-2 shadow-xl'
     const disableButton = 'w-full text-white my-6 bg-slate-400 cursor-pointer border rounded-full py-2 shadow-xl'
-    const dispacth = useDispatch();
+    const dispatch = useDispatch();
     const allProducts = useSelector(state => state?.productReducer?.productName)
     const searchOrder  = useSelector(state => state?.productReducer?.searchProduct)
+    const totalPage = useSelector(state => state?.productReducer?.orderPagination)
+    const orders = useSelector(state => state?.productReducer?.allOrder)
+    const [currentPage,setCurrentPage] = useState(1);
+    const itemPerPage = 4;
 
-// console.log('loglsos dfsdlkfsl ', searchOrder)
+    useEffect(()=>{
+        dispatch(allOrders({currentPage,itemPerPage,searchItem}))
+    },[dispatch ,currentPage,searchItem,])
 
     const handleSearch = (e)=>{
         e.preventDefault();
@@ -31,40 +37,39 @@ const page = () => {
 
     const columns = [
         {
-          title: 'Name',
+          title: 'User Name',
           dataIndex: 'name',
           key: 'name',
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
+          title: 'Email',
+          dataIndex: 'email',
+          key: 'email',
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
+          title: 'Product Name',
+          dataIndex: 'productName',
+          key: 'productName',
         },
         {
-          title: 'Action',
-          dataIndex: '',
-          key: 'x',
-          render: () => <a>Delete</a>,
+          title: 'Price',
+          dataIndex: 'price',
+          key: 'price',
         },
     ];
-    const data = [
+    const data = orders?.map(order =>(
         {
-          key: 1,
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          description: 'My name is John Brown, I am 32 years old, living in New York No. 1 Lake Park.',
-        },
-    ];
+            key : order?._id,
+            name : order?.userName,
+            email : order?.userEmail,
+            productName : order?.productName,
+            price : order?.orderPrice
+        }
+    ) )
     
     const showModal = () => {
         setIsModalOpen(true);
-        dispacth(productNames(''))
+        dispatch(productNames(''))
     };
     const handleOk = () => {
         setIsModalOpen(false);
@@ -74,9 +79,9 @@ const page = () => {
     };
 
     const handleSearchOrder = async (e)=>{
-        console.log('khay khay',e.target.value)
+        // console.log('khay khay',e.target.value)
         const searchName = e.target.value;
-        dispacth(orderProductName(searchName))
+        dispatch(orderProductName(searchName))
         setOrderPrice(searchOrder?.price)
     }
     const handleCheckQuantity =(e)=>{
@@ -97,6 +102,7 @@ const page = () => {
 
     const handleOrder = (e)=>{
         e.preventDefault();
+        const pQuantity = parseInt(searchOrder?.quantity)
         const newOrder = {
             userName : e.target.userName.value,
             userEmail : e.target.userEmail.value,
@@ -106,8 +112,34 @@ const page = () => {
             orderPrice : orderPrice || searchOrder?.price,
             orderImage : searchOrder?.image,
         }
-        console.log(newOrder)
-        dispacth(orderProduct(newOrder));
+        if(e.target.orderQuantity.value <= 0){
+            return Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "Quntity is not correct .",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+        if(e.target.orderQuantity.value > pQuantity){
+            return Swal.fire({
+                position: "top-end",
+                icon: "error",
+                title: "We don't have that much product .",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
+        dispatch(orderProduct(newOrder));
+        setIsModalOpen(false)
+        e.target.reset()
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Order successfully added .",
+            showConfirmButton: false,
+            timer: 1500
+        });
     }
 
     return (
@@ -174,7 +206,13 @@ const page = () => {
                 </div>
             </div>
             <div className="p-3">
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={data} pagination={{pageSize:itemPerPage,
+                    total:totalPage,
+                    current:currentPage,onChange:(page)=>{
+                    setCurrentPage(page)
+                    }
+                }
+              } />
             </div>
         </div>
     );

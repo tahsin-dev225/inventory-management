@@ -1,5 +1,4 @@
 "use client"
-
 import { allUsers } from "@/components/redux/user/userSlice";
 import { Space, Table, Tag } from "antd";
 import { useEffect } from "react";
@@ -9,7 +8,7 @@ const page = () => {
     const allUser = useSelector(state => state?.userReducer?.allUsers)
     const dispatch = useDispatch();
 
-    console.log('allo aldfoisuoisd user  ', allUser)
+    // console.log('allo aldfoisuoisd user  ', allUser)
 
     useEffect(()=>{
         dispatch(allUsers(''))
@@ -58,24 +57,13 @@ const page = () => {
           ),
         },
       ];
+
       const data = [
         {
           key: '1',
           name: 'John Brown',
           age: 32,
           tags: ['nice', 'developer'],
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          tags: ['loser'],
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          tags: ['cool', 'teacher'],
         },
       ];
 

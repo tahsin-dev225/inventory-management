@@ -60,6 +60,17 @@ export const orderProduct = createAsyncThunk("orderProduct", async(newOrder,{rej
         return rejectWithValue(error?.response?.data || error.message);
     }
 })
+export const allOrders = createAsyncThunk("allOrders", async({currentPage,itemPerPage,searchItem},{rejectWithValue})=>{
+    try {
+        const resp = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/order?page=${currentPage}&size=${itemPerPage}&search=${searchItem}`,{withCredentials : true}
+        );
+        // console.log('respone redux main server', resp.data.metaData)
+        return resp?.data
+    }catch (error) {
+        console.log(error)
+        return rejectWithValue(error?.response?.data || error.message);
+    }
+})
 
 const productSlice = createSlice({
     name : 'products',
@@ -72,7 +83,8 @@ const productSlice = createSlice({
         pagination : null,
         productName : null,
         searchProduct : null,
-
+        allOrder : null,
+        orderPagination : null,
     },
     reducers : {},
     extraReducers : (builder)=>{
@@ -122,6 +134,17 @@ const productSlice = createSlice({
         builder.addCase(orderProductName.rejected , (state , action)=>{
             state.searchProduct = action.payload
             // console.log("eroor", action.payload);
+        })
+
+        builder.addCase(allOrders.fulfilled, (state,action)=>{
+            // console.log('product', action.payload);
+            // state.isLoading = false;
+            state.allOrder = action.payload.result;
+            state.orderPagination = action.payload.metaData.totalItem || null;
+        });
+        builder.addCase(allOrders.rejected , (state , action)=>{
+            // state.searchProduct = action.payload
+            console.log("eroor", action.payload);
         })
         
         // builder.addCase(deleteBlogs.pending , (state , action )=>{

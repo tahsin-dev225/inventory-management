@@ -84,18 +84,21 @@ const LoginPage = () => {
                         {/* <Image className="w-[300px]" src={'/img/inven-signin.png'} height={500} width={600} alt="login" /> */}
                         <Link href='/signup' className="text-white mx-auto  flex gap-3 items-center my-6 w-max px-5 bg-gradient-to-tr from-indigo-900 to-orange-600 cursor-pointer rounded-full py-2 ">Sign Up <FaLongArrowAltRight/></Link>
                     </div>
-                    {
+                    <div className="">
+                        {
                         theme === 'light' &&
                         <button onClick={() => setTheme('dark')} className="border mx-3 duration-500 transition-all px-3 w-[80px] text-rose-500 items-center py-1 rounded-full flex justify-between "  ><FaCircle/>{theme}</button>
-                    }
-                    {
-                        theme === 'dark' &&
-                        <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
-                    }
-                    {
-                        theme === 'system' &&
-                        <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{"light"}<FaCircle/></button>
-                    }
+                        }
+                        {
+                            theme === 'dark' &&
+                            <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{theme}<FaCircle/></button>
+                        }
+                        {
+                            theme === 'system' &&
+                            <button onClick={() => setTheme('light')} className="border mx-3 duration-500 transition-all px-2 w-[76px] items-center py-1  rounded-full flex justify-between "  >{"light"}<FaCircle/></button>
+                        }
+                    </div>
+                    
                 </div>
                 
                 <div className="w-full flex justify-center items-center">

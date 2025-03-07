@@ -28,8 +28,8 @@ const useFirebase = () => {
         onAuthStateChanged(auth, currentUser =>{
             dispatch(getUser(currentUser?.email))
             if(currentUser){
-                
                 dispatch(getAdmin(currentUser?.email))
+
                  //get token and store client side
                  const userInfo = {email: currentUser.email};
                  axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/jwt`, userInfo,{withCredentials : true})
@@ -41,9 +41,6 @@ const useFirebase = () => {
                 //  getIdToken(currentUser)
                 //  .then(res =>{
                 //     console.log('firebase jwt token ',res)
-                    
-                //  }).catch(err=>{
-                //     console.log(err)
                 //  })
              }else{
                  //TODO: remove token (if token stored in the client side:local storage, caching, in memory)

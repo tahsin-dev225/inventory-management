@@ -72,7 +72,7 @@ const page = () => {
         <div className='p-2 w-full'>
             <div className="flex lg:justify-around items-center my-3">
                 <i className="text-md lg:text-3xl w-min lg:w-max my-4 mx-4 font-medium font-roboto">All products page.</i>
-                <form onSubmit={handleSearch} className={`${theme === 'dark' ? "flex items-center justify-center gap-2 h-min text-slate-300 bg-black rounded-full  pr-3": "flex items-center justify-center gap-2 h-min bg-white rounded-full  pr-3"} `}>
+                <form onSubmit={handleSearch} className={`${theme === 'dark' ? "flex items-center justify-center gap-2 h-min text-slate-300 bg-black rounded-full pl-2 pr-3": "flex items-center justify-center gap-2 h-min bg-white rounded-full pl-2 pr-3"} `}>
                     <input type="search" placeholder='Search product' name="search" className={`max-w-24 text-[13px] lg:text-[17px] lg:max-w-56 py-2 rounded-l-full px-3 outline-none`} />
                     <button className='text'><FaSearch/></button>
                 </form>

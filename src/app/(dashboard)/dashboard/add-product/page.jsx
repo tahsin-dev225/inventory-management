@@ -17,7 +17,6 @@ const page = () => {
     const disableButton = 'w-full text-white my-6 bg-slate-400 cursor-pointer border rounded-full py-2 shadow-xl'
     const productError = useSelector(state => state?.productReducer?.productError)
     const isError = useSelector(state => state?.productReducer?.isError)
-    console.log("erro from add produc", productError)
 
     const handleAddProduct =async (e)=>{
         setdisable(true)
